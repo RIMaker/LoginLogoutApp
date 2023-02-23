@@ -19,8 +19,11 @@
 		7C6837B629A65398001C243C /* AuthServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6837B529A65398001C243C /* AuthServiceImpl.swift */; };
 		7C6837BA29A65922001C243C /* ViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6837B929A65922001C243C /* ViewFactory.swift */; };
 		7C6837BC29A65933001C243C /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6837BB29A65933001C243C /* Router.swift */; };
-		7CB80F2A29A76DCB00750B8D /* Captcha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB80F2929A76DCB00750B8D /* Captcha.swift */; };
+		7CB80F2A29A76DCB00750B8D /* CaptchaResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB80F2929A76DCB00750B8D /* CaptchaResponseModel.swift */; };
 		7CB80F2C29A7748800750B8D /* String + base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB80F2B29A7748800750B8D /* String + base64.swift */; };
+		7CB80F2E29A77ED000750B8D /* AuthResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB80F2D29A77ED000750B8D /* AuthResponseModel.swift */; };
+		7CB80F3029A77F3B00750B8D /* AuthRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB80F2F29A77F3B00750B8D /* AuthRequestModel.swift */; };
+		7CB80F3229A7A63300750B8D /* BadResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB80F3129A7A63300750B8D /* BadResponseModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,8 +41,11 @@
 		7C6837B529A65398001C243C /* AuthServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceImpl.swift; sourceTree = "<group>"; };
 		7C6837B929A65922001C243C /* ViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewFactory.swift; sourceTree = "<group>"; };
 		7C6837BB29A65933001C243C /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
-		7CB80F2929A76DCB00750B8D /* Captcha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Captcha.swift; sourceTree = "<group>"; };
+		7CB80F2929A76DCB00750B8D /* CaptchaResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptchaResponseModel.swift; sourceTree = "<group>"; };
 		7CB80F2B29A7748800750B8D /* String + base64.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + base64.swift"; sourceTree = "<group>"; };
+		7CB80F2D29A77ED000750B8D /* AuthResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponseModel.swift; sourceTree = "<group>"; };
+		7CB80F2F29A77F3B00750B8D /* AuthRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequestModel.swift; sourceTree = "<group>"; };
+		7CB80F3129A7A63300750B8D /* BadResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadResponseModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,7 +211,10 @@
 		7C6837B729A6539E001C243C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				7CB80F2929A76DCB00750B8D /* Captcha.swift */,
+				7CB80F2929A76DCB00750B8D /* CaptchaResponseModel.swift */,
+				7CB80F2D29A77ED000750B8D /* AuthResponseModel.swift */,
+				7CB80F2F29A77F3B00750B8D /* AuthRequestModel.swift */,
+				7CB80F3129A7A63300750B8D /* BadResponseModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -290,7 +299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C6837AB29A63B0E001C243C /* AuthorizationPresenter.swift in Sources */,
-				7CB80F2A29A76DCB00750B8D /* Captcha.swift in Sources */,
+				7CB80F2A29A76DCB00750B8D /* CaptchaResponseModel.swift in Sources */,
 				7C68379029A637F3001C243C /* AuthorizationViewController.swift in Sources */,
 				7CB80F2C29A7748800750B8D /* String + base64.swift in Sources */,
 				7C6837BC29A65933001C243C /* Router.swift in Sources */,
@@ -298,6 +307,9 @@
 				7C6837B029A64953001C243C /* AuthTextField.swift in Sources */,
 				7C6837BA29A65922001C243C /* ViewFactory.swift in Sources */,
 				7C68378C29A637F3001C243C /* AppDelegate.swift in Sources */,
+				7CB80F3229A7A63300750B8D /* BadResponseModel.swift in Sources */,
+				7CB80F3029A77F3B00750B8D /* AuthRequestModel.swift in Sources */,
+				7CB80F2E29A77ED000750B8D /* AuthResponseModel.swift in Sources */,
 				7C68378E29A637F3001C243C /* SceneDelegate.swift in Sources */,
 				7C6837AE29A648E6001C243C /* UIImageView + load.swift in Sources */,
 				7C6837B629A65398001C243C /* AuthServiceImpl.swift in Sources */,

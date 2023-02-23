@@ -39,6 +39,8 @@ class AuthTextField: UITextField {
         layer.cornerRadius = 20
         layer.borderWidth = 2
         layer.borderColor = UIColor.gray.cgColor
+        autocorrectionType = .no
+        autocapitalizationType = .none
         heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
     

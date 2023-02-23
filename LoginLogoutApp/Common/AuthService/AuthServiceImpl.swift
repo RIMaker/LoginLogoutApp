@@ -14,9 +14,9 @@ enum AuthState {
 
 protocol AuthService {
     var state: AuthState { get set }
-    func getCaptcha(completion: @escaping (Captcha?)->())
-    func login()
-    func logout()
+    func getCaptcha(completion: @escaping (CaptchaResponseModel?)->())
+    func signIn(login: String, password: String, captcha: CaptchaRequestData, completion: @escaping (AuthResponseModel?)->())
+    func signOut()
 }
 
 class AuthServiceImpl: AuthService {
@@ -32,9 +32,9 @@ class AuthServiceImpl: AuthService {
         apiProvider = APIProviderImpl()
     }
     
-    func getCaptcha(completion: @escaping (Captcha?)->()) {
+    func getCaptcha(completion: @escaping (CaptchaResponseModel?)->()) {
         apiProvider.fetchData(
-            Captcha.self,
+            CaptchaResponseModel.self,
             requestType: .getCaptcha,
             httpHeaders: nil,
             httpBody: nil
@@ -50,11 +50,29 @@ class AuthServiceImpl: AuthService {
         }
     }
     
-    func login() {
-        
+    func signIn(login: String, password: String, captcha: CaptchaRequestData, completion: @escaping (AuthResponseModel?)->()) {
+        let authRequestModel = AuthRequestModel(
+            username: login,
+            password: password,
+            captcha: captcha)
+        let httpBody = try? JSONEncoder().encode(authRequestModel)
+        apiProvider.fetchData(
+            AuthResponseModel.self,
+            requestType: .auth,
+            httpHeaders: nil,
+            httpBody: httpBody
+        ) { result in
+            switch result {
+            case .success(let authResponseModel):
+                completion(authResponseModel)
+            case .failure(let error):
+                print(error)
+                completion(nil)
+            }
+        }
     }
     
-    func logout() {
+    func signOut() {
         
     }
     

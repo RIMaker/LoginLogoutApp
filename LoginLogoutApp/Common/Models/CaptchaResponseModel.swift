@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct Captcha: Codable {
+struct CaptchaResponseModel: Codable {
     let resultCode: String
     let resultMessage: String
-    let data: CaptchaData
+    let data: CaptchaResponseData
 }
 
-struct CaptchaData: Codable {
+struct CaptchaResponseData: Codable {
     let key: String
     let imageData: String
 }

@@ -25,6 +25,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
 
+    func showAlert(title: String, message: String, actionTitle: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: actionTitle, style: .default)
+        alertController.addAction(action)
+        
+        var rootViewController = UIApplication.shared.windows.filter{$0.isKeyWindow}.first?.rootViewController
+        if let navigationController = rootViewController as? UINavigationController {
+            rootViewController = navigationController.viewControllers.last
+        }
+        if let tabBarController = rootViewController as? UITabBarController {
+            rootViewController = tabBarController.selectedViewController
+        }
+        if let presentedController = rootViewController?.presentedViewController {
+            rootViewController = presentedController
+        }
+        rootViewController?.present(alertController, animated: true, completion: nil)
+    }
 
 }
 

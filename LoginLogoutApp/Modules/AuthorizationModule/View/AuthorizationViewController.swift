@@ -51,6 +51,7 @@ class AuthorizationViewControllerImpl: UIViewController, AuthorizationViewContro
         btn.layer.cornerRadius = 20
         btn.clipsToBounds = true
         btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.addTarget(self, action: #selector(tappedOnSignInButton), for: .touchUpInside)
         return btn
     }()
     
@@ -103,6 +104,23 @@ class AuthorizationViewControllerImpl: UIViewController, AuthorizationViewContro
     
     func changeCaptchaImage(with url: URL) {
         self.captchaImageView.load(url: url)
+    }
+    
+    @objc
+    private func tappedOnSignInButton(_ sender: UIButton) {
+        guard
+            let login = loginTextField.text,
+            let password = passwordTextField.text,
+            let captcha = captchaTextField.text
+        else { return }
+        
+        presenter?.signIn(
+            login: login,
+            password: password,
+            captcha: captcha
+        ) {
+            
+        }
     }
 
 }

@@ -5,7 +5,7 @@
 //  Created by Zhora Agadzhanyan on 22.02.2023.
 //
 
-import Foundation
+import UIKit
 
 enum RequestType: String {
     case getCaptcha
@@ -56,16 +56,15 @@ class APIProviderImpl: APIProvider {
         
         guard let url = URL(string: getUrl(for: requestType)) else { return }
         
-        var request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad)
+        var request = URLRequest(url: url)
         request.httpMethod = getHTTPMethod(for: requestType).rawValue
         request.allHTTPHeaderFields = httpHeaders
         request.httpBody = httpBody
-        
+        request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
         session.dataTask(with: request) { (data, response, error) in
             guard
-                let data = data,
                 let response = response as? HTTPURLResponse,
-                response.statusCode == 200,
+                let data = data,
                 error == nil
             else {
                 if let error = error {
@@ -75,9 +74,23 @@ class APIProviderImpl: APIProvider {
             }
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
+            
+            guard response.statusCode == 200 else {
+                do {
+                    let ent = try decoder.decode(BadResponseModel.self, from: data)
+                    self.showAlert(with: ent)
+                    if let error = error {
+                        complition(.failure(error))
+                    }
+                } catch {
+                    complition(.failure(error))
+                }
+                return
+            }
+            
             do {
-                let places = try decoder.decode(type, from: data)
-                complition(.success(places))
+                let ent = try decoder.decode(type, from: data)
+                complition(.success(ent))
             } catch {
                 complition(.failure(error))
             }
@@ -104,6 +117,29 @@ class APIProviderImpl: APIProvider {
             return .post
         case .getUserInfo:
             return .get
+        }
+    }
+    
+    private func showAlert(with message: BadResponseModel) {
+        DispatchQueue.main.async {
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            if
+                let _ = message.validation.password?.first,
+                let _ = message.validation.username?.first
+            {
+                appDelegate?.showAlert(
+                    title: "Ошибка",
+                    message: "Неверный логин или пароль",
+                    actionTitle: "Закрыть"
+                )
+            } else if let captchaError = message.validation.captcha?.first {
+                appDelegate?.showAlert(
+                    title: "Ошибка",
+                    message: captchaError,
+                    actionTitle: "Закрыть"
+                )
+            }
+            
         }
     }
     
