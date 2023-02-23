@@ -10,6 +10,7 @@ import Foundation
 protocol AuthorizationPresenter {
     init(authService: AuthService, view: AuthorizationViewController?)
     func viewShown()
+    func getCaptcha()
     func signIn(login: String, password: String, captcha: String, completion: @escaping ()->())
 }
 
@@ -27,6 +28,10 @@ class AuthorizationPresenterImpl: AuthorizationPresenter {
     
     func viewShown() {
         view?.setup()
+        getCaptcha()
+    }
+    
+    func getCaptcha() {
         authService.getCaptcha() { [weak self] captchaResponse in
             self?.captchaResponseModel = captchaResponse
             if let imageData = captchaResponse?.data.imageData, let url = URL(string: imageData) {
@@ -43,7 +48,7 @@ class AuthorizationPresenterImpl: AuthorizationPresenter {
             password: password,
             captcha: captchaRequestModel
         ) { [weak self] authResponse in
-                
+            print(authResponse?.data.accessToken)
         }
     }
     

@@ -19,12 +19,14 @@ class AuthorizationViewControllerImpl: UIViewController, AuthorizationViewContro
     private lazy var loginTextField: AuthTextField = {
         let textField = AuthTextField(textFieldType: .defaultType)
         textField.placeholder = "Логин"
+        textField.delegate = self
         return textField
     }()
     
     private lazy var passwordTextField: AuthTextField = {
         let textField = AuthTextField(textFieldType: .secureType)
         textField.placeholder = "Пароль"
+        textField.delegate = self
         return textField
     }()
     
@@ -37,9 +39,36 @@ class AuthorizationViewControllerImpl: UIViewController, AuthorizationViewContro
         return imgView
     }()
     
+    private lazy var reloadCaptchaImageView: UIImageView = {
+        let imgView = UIImageView()
+        imgView.contentMode = .scaleAspectFit
+        imgView.translatesAutoresizingMaskIntoConstraints = false
+        imgView.image = UIImage(systemName: "arrow.counterclockwise.circle.fill")
+        imgView.tintColor = .gray
+        imgView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tappedOnReloadCaptchaButton))
+        imgView.addGestureRecognizer(tap)
+        return imgView
+    }()
+    
+    private lazy var hStackForCaptcha: UIStackView = {
+        let hStack = UIStackView(arrangedSubviews: [
+            captchaImageView,
+            reloadCaptchaImageView
+        ])
+        hStack.translatesAutoresizingMaskIntoConstraints = false
+        hStack.spacing = 10
+        hStack.distribution = .fill
+        hStack.alignment = .center
+        hStack.axis = .horizontal
+        hStack.backgroundColor = .systemBackground
+        return hStack
+    }()
+    
     private lazy var captchaTextField: AuthTextField = {
         let textField = AuthTextField(textFieldType: .defaultType)
         textField.placeholder = "Капча"
+        textField.delegate = self
         return textField
     }()
     
@@ -59,7 +88,7 @@ class AuthorizationViewControllerImpl: UIViewController, AuthorizationViewContro
         let vStack = UIStackView(arrangedSubviews: [
             loginTextField,
             passwordTextField,
-            captchaImageView,
+            hStackForCaptcha,
             captchaTextField,
             signInButton
         ])
@@ -94,8 +123,13 @@ class AuthorizationViewControllerImpl: UIViewController, AuthorizationViewContro
             
             captchaTextField.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40),
             
-            captchaImageView.heightAnchor.constraint(equalToConstant: 80),
-            captchaImageView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40),
+            hStackForCaptcha.heightAnchor.constraint(equalToConstant: 80),
+            hStackForCaptcha.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40),
+            
+            reloadCaptchaImageView.heightAnchor.constraint(equalTo: hStackForCaptcha.heightAnchor),
+            reloadCaptchaImageView.widthAnchor.constraint(equalToConstant: 40),
+            
+            captchaImageView.heightAnchor.constraint(equalTo: hStackForCaptcha.heightAnchor),
             
             signInButton.heightAnchor.constraint(equalToConstant: 40),
             signInButton.widthAnchor.constraint(equalToConstant: 150),
@@ -122,5 +156,17 @@ class AuthorizationViewControllerImpl: UIViewController, AuthorizationViewContro
             
         }
     }
+    
+    @objc
+    private func tappedOnReloadCaptchaButton(_ sender: UITapGestureRecognizer) {
+        presenter?.getCaptcha()
+    }
 
+}
+
+extension AuthorizationViewControllerImpl: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
 }
