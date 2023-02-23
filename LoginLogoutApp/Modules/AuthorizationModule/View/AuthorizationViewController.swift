@@ -147,9 +147,7 @@ class AuthorizationViewControllerImpl: UIViewController, AuthorizationViewContro
             login: login,
             password: password,
             captcha: captcha
-        ) {
-            
-        }
+        )
     }
     
     @objc

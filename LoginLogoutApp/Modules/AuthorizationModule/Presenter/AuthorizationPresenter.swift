@@ -11,7 +11,7 @@ protocol AuthorizationPresenter {
     init(authService: AuthService, view: AuthorizationViewController?, router: RouterAuthorizationScreen)
     func viewShown()
     func getCaptcha()
-    func signIn(login: String, password: String, captcha: String, completion: @escaping ()->())
+    func signIn(login: String, password: String, captcha: String)
 }
 
 class AuthorizationPresenterImpl: AuthorizationPresenter {
@@ -42,7 +42,7 @@ class AuthorizationPresenterImpl: AuthorizationPresenter {
         }
     }
     
-    func signIn(login: String, password: String, captcha: String, completion: @escaping ()->()) {
+    func signIn(login: String, password: String, captcha: String) {
         guard let captchaKey = captchaResponseModel?.data.key else { return }
         let captchaRequestModel = CaptchaRequestData(key: captchaKey, value: captcha)
         authService.signIn(
