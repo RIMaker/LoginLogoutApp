@@ -27,10 +27,19 @@ class ProfilePresenterImpl: ProfilePresenter {
     
     func viewShown() {
         view?.setup()
+        getUserInfo()
     }
     
     func signOut() {
         router.showAuthorizationScreen()
+    }
+    
+    private func getUserInfo() {
+        authService.getUserInfo { [weak self] userInfo in
+            if let name = userInfo?.data?.profile?.name {
+                self?.view?.changeName(with: name)
+            }
+        }
     }
     
     

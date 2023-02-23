@@ -31,6 +31,7 @@
 		7CB80F4129A7D0C800750B8D /* SystemSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB80F4029A7D0C800750B8D /* SystemSymbol.swift */; };
 		7CB80F4329A7D15100750B8D /* DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB80F4229A7D15100750B8D /* DefaultsKeys.swift */; };
 		7CB80F4529A7D24900750B8D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB80F4429A7D24900750B8D /* Constants.swift */; };
+		7CB80F4729A7D7DA00750B8D /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB80F4629A7D7DA00750B8D /* UserInfoModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		7CB80F4029A7D0C800750B8D /* SystemSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemSymbol.swift; sourceTree = "<group>"; };
 		7CB80F4229A7D15100750B8D /* DefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsKeys.swift; sourceTree = "<group>"; };
 		7CB80F4429A7D24900750B8D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		7CB80F4629A7D7DA00750B8D /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,6 +235,7 @@
 				7CB80F2D29A77ED000750B8D /* AuthResponseModel.swift */,
 				7CB80F2F29A77F3B00750B8D /* AuthRequestModel.swift */,
 				7CB80F3129A7A63300750B8D /* BadResponseModel.swift */,
+				7CB80F4629A7D7DA00750B8D /* UserInfoModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 				7CB80F2C29A7748800750B8D /* String + base64.swift in Sources */,
 				7CB80F4129A7D0C800750B8D /* SystemSymbol.swift in Sources */,
 				7C6837BC29A65933001C243C /* Router.swift in Sources */,
+				7CB80F4729A7D7DA00750B8D /* UserInfoModel.swift in Sources */,
 				7C6837B329A65139001C243C /* APIProvider.swift in Sources */,
 				7C6837B029A64953001C243C /* LLAuthTextField.swift in Sources */,
 				7CB80F3929A7BC0900750B8D /* ProfileViewController.swift in Sources */,

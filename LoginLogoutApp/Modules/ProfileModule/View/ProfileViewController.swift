@@ -9,6 +9,7 @@ import UIKit
 
 protocol ProfileViewController: AnyObject {
     func setup()
+    func changeName(with text: String)
 }
 
 class ProfileViewControllerImpl: UIViewController, ProfileViewController {
@@ -65,6 +66,12 @@ class ProfileViewControllerImpl: UIViewController, ProfileViewController {
             signInButton.heightAnchor.constraint(equalToConstant: 40),
             signInButton.widthAnchor.constraint(equalToConstant: 150),
         ])
+    }
+    
+    func changeName(with text: String) {
+        DispatchQueue.main.async { [weak self] in
+            self?.userName.text = text
+        }
     }
 
     @objc

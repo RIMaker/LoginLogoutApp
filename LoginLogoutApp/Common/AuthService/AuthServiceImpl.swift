@@ -17,6 +17,7 @@ protocol AuthService {
     func getCaptcha(completion: @escaping (CaptchaResponseModel?)->())
     func signIn(login: String, password: String, captcha: CaptchaRequestData, completion: @escaping (AuthResponseModel?)->())
     func signOut()
+    func getUserInfo(completion: @escaping (UserInfoModel?)->())
 }
 
 class AuthServiceImpl: AuthService {
@@ -74,6 +75,35 @@ class AuthServiceImpl: AuthService {
     
     func signOut() {
         
+    }
+    
+    func getUserInfo(completion: @escaping (UserInfoModel?)->()) {
+        guard let result = KeychainHelper.standard.read(
+            service: DefaultsKeys.tokenKey.rawValue,
+            account: APIProviderImpl.baseURL,
+            type: AuthTokens.self
+        ) else {
+            completion(nil)
+            return
+        }
+        let httpHeaders = [
+            "accept" : "application/json",
+            "authorization" : "Bearer \(result.accessToken)"
+        ]
+        apiProvider.fetchData(
+            UserInfoModel.self,
+            requestType: .getUserInfo,
+            httpHeaders: httpHeaders,
+            httpBody: nil
+        ) { result in
+            switch result {
+            case .success(let userInfo):
+                completion(userInfo)
+            case .failure(let error):
+                print(error)
+                completion(nil)
+            }
+        }
     }
     
     
