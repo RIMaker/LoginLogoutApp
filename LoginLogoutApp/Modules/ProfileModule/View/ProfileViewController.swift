@@ -25,7 +25,7 @@ class ProfileViewControllerImpl: UIViewController, ProfileViewController {
     
     private lazy var signInButton: LLButton = {
         let btn = LLButton()
-        btn.setTitle("Выйти", for: .normal)
+        btn.setTitle(Constants.signOutButtonTitle.rawValue, for: .normal)
         btn.addTarget(self, action: #selector(tappedOnSignOutButton), for: .touchUpInside)
         return btn
     }()

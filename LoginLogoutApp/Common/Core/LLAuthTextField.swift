@@ -12,7 +12,7 @@ enum TextFieldType {
     case defaultType
 }
 
-class AuthTextField: UITextField {
+class LLAuthTextField: UITextField {
     
     private let textFieldType: TextFieldType
     
@@ -62,9 +62,9 @@ class AuthTextField: UITextField {
     
     private func setPasswordToggleImage(_ button: UIButton) {
         if isSecureTextEntry {
-            button.setImage(UIImage(systemName: "eye.fill"), for: .normal)
+            button.setImage(UIImage(systemName: SystemSymbol.eye.rawValue), for: .normal)
         }else{
-            button.setImage(UIImage(systemName: "eye.slash.fill"), for: .normal)
+            button.setImage(UIImage(systemName: SystemSymbol.eyeSlash.rawValue), for: .normal)
         }
     }
 

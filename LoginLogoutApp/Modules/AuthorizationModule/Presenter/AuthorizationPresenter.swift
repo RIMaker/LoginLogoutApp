@@ -56,10 +56,10 @@ class AuthorizationPresenterImpl: AuthorizationPresenter {
             // Save `auth` to keychain
             KeychainHelper.standard.save(
                 authResponse.data,
-                service: "token",
+                service: DefaultsKeys.tokenKey.rawValue,
                 account: APIProviderImpl.baseURL
             )
-            UserDefaults.standard.set(Date(), forKey: "lastTokenAccessDate")
+            UserDefaults.standard.set(Date(), forKey: DefaultsKeys.lastTokenAccessDateKey.rawValue)
             self?.router.showProfileScreen()
         }
     }

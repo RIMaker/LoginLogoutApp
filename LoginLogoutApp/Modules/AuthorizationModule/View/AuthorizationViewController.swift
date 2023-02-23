@@ -16,16 +16,16 @@ class AuthorizationViewControllerImpl: UIViewController, AuthorizationViewContro
     
     var presenter: AuthorizationPresenter?
     
-    private lazy var loginTextField: AuthTextField = {
-        let textField = AuthTextField(textFieldType: .defaultType)
-        textField.placeholder = "Логин"
+    private lazy var loginTextField: LLAuthTextField = {
+        let textField = LLAuthTextField(textFieldType: .defaultType)
+        textField.placeholder = Constants.loginPlaceholder.rawValue
         textField.delegate = self
         return textField
     }()
     
-    private lazy var passwordTextField: AuthTextField = {
-        let textField = AuthTextField(textFieldType: .secureType)
-        textField.placeholder = "Пароль"
+    private lazy var passwordTextField: LLAuthTextField = {
+        let textField = LLAuthTextField(textFieldType: .secureType)
+        textField.placeholder = Constants.passwordPlaceholder.rawValue
         textField.delegate = self
         return textField
     }()
@@ -34,7 +34,7 @@ class AuthorizationViewControllerImpl: UIViewController, AuthorizationViewContro
         let imgView = UIImageView()
         imgView.contentMode = .scaleAspectFit
         imgView.translatesAutoresizingMaskIntoConstraints = false
-        imgView.image = UIImage(systemName: "photo")
+        imgView.image = UIImage(systemName: SystemSymbol.placeholder.rawValue)
         imgView.tintColor = .gray
         return imgView
     }()
@@ -43,7 +43,7 @@ class AuthorizationViewControllerImpl: UIViewController, AuthorizationViewContro
         let imgView = UIImageView()
         imgView.contentMode = .scaleAspectFit
         imgView.translatesAutoresizingMaskIntoConstraints = false
-        imgView.image = UIImage(systemName: "arrow.counterclockwise.circle.fill")
+        imgView.image = UIImage(systemName: SystemSymbol.reload.rawValue)
         imgView.tintColor = .gray
         imgView.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(tappedOnReloadCaptchaButton))
@@ -65,16 +65,16 @@ class AuthorizationViewControllerImpl: UIViewController, AuthorizationViewContro
         return hStack
     }()
     
-    private lazy var captchaTextField: AuthTextField = {
-        let textField = AuthTextField(textFieldType: .defaultType)
-        textField.placeholder = "Капча"
+    private lazy var captchaTextField: LLAuthTextField = {
+        let textField = LLAuthTextField(textFieldType: .defaultType)
+        textField.placeholder = Constants.captchaPlaceholder.rawValue
         textField.delegate = self
         return textField
     }()
     
     private lazy var signInButton: LLButton = {
         let btn = LLButton()
-        btn.setTitle("Войти", for: .normal)
+        btn.setTitle(Constants.signInButtonTitle.rawValue, for: .normal)
         btn.addTarget(self, action: #selector(tappedOnSignInButton), for: .touchUpInside)
         return btn
     }()

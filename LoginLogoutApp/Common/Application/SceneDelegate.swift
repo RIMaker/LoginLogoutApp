@@ -22,10 +22,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.overrideUserInterfaceStyle = .light
         window?.windowScene = windowScene
         
-        let result = KeychainHelper.standard.read(service: "token",
+        let result = KeychainHelper.standard.read(service: DefaultsKeys.tokenKey.rawValue,
                                                   account: APIProviderImpl.baseURL,
                                                   type: AuthTokens.self)
-        let lastTokenUpdatingDate = UserDefaults.standard.object(forKey: "lastTokenAccessDate") as? Date
+        
+        let lastTokenUpdatingDate = UserDefaults.standard.object(
+            forKey: DefaultsKeys.lastTokenAccessDateKey.rawValue
+        ) as? Date
+        
         let nowDate = Date()
         if let lastTokenUpdatingDate = lastTokenUpdatingDate, let result = result {
             if nowDate.timeIntervalSince(lastTokenUpdatingDate) >= Double(result.expiresIn) {

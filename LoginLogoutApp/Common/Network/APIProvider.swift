@@ -128,15 +128,15 @@ class APIProviderImpl: APIProvider {
                 let usernameError = message.validation.username?.first
             {
                 appDelegate?.showAlert(
-                    title: "Ошибка",
+                    title: Constants.errorAlertTitle.rawValue,
                     message: usernameError + " " + passwordError,
-                    actionTitle: "Закрыть"
+                    actionTitle: Constants.alertCloseButtonTitle.rawValue
                 )
             } else if let captchaError = message.validation.captcha?.first {
                 appDelegate?.showAlert(
-                    title: "Ошибка",
+                    title: Constants.errorAlertTitle.rawValue,
                     message: captchaError,
-                    actionTitle: "Закрыть"
+                    actionTitle: Constants.alertCloseButtonTitle.rawValue
                 )
             }
             
