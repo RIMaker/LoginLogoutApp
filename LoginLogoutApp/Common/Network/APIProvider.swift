@@ -30,18 +30,18 @@ class APIProviderImpl: APIProvider {
         case post = "POST"
     }
     
-    private let baseURL = "https://api-events.pfdo.ru/v1"
+    static let baseURL = "https://api-events.pfdo.ru/v1"
     
     private var getCaptchaUrl: String {
-        return baseURL + "/captcha"
+        return APIProviderImpl.baseURL + "/captcha"
     }
     
     private var getAuthUrl: String {
-        return baseURL + "/auth"
+        return APIProviderImpl.baseURL + "/auth"
     }
     
     private var getUserInfoUrl: String {
-        return baseURL + "/user"
+        return APIProviderImpl.baseURL + "/user"
     }
     
     private let session: URLSession = URLSession.shared
@@ -124,12 +124,12 @@ class APIProviderImpl: APIProvider {
         DispatchQueue.main.async {
             let appDelegate = UIApplication.shared.delegate as? AppDelegate
             if
-                let _ = message.validation.password?.first,
-                let _ = message.validation.username?.first
+                let passwordError = message.validation.password?.first,
+                let usernameError = message.validation.username?.first
             {
                 appDelegate?.showAlert(
                     title: "Ошибка",
-                    message: "Неверный логин или пароль",
+                    message: usernameError + " " + passwordError,
                     actionTitle: "Закрыть"
                 )
             } else if let captchaError = message.validation.captcha?.first {

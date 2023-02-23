@@ -8,7 +8,7 @@
 import Foundation
 
 protocol AuthorizationPresenter {
-    init(authService: AuthService, view: AuthorizationViewController?)
+    init(authService: AuthService, view: AuthorizationViewController?, router: RouterAuthorizationScreen)
     func viewShown()
     func getCaptcha()
     func signIn(login: String, password: String, captcha: String, completion: @escaping ()->())
@@ -16,14 +16,16 @@ protocol AuthorizationPresenter {
 
 class AuthorizationPresenterImpl: AuthorizationPresenter {
     
+    private var router: RouterAuthorizationScreen
     private var authService: AuthService
     private weak var view: AuthorizationViewController?
     
     private var captchaResponseModel: CaptchaResponseModel?
     
-    required init(authService: AuthService, view: AuthorizationViewController?) {
+    required init(authService: AuthService, view: AuthorizationViewController?, router: RouterAuthorizationScreen) {
         self.authService = authService
         self.view = view
+        self.router = router
     }
     
     func viewShown() {
@@ -48,7 +50,17 @@ class AuthorizationPresenterImpl: AuthorizationPresenter {
             password: password,
             captcha: captchaRequestModel
         ) { [weak self] authResponse in
-            print(authResponse?.data.accessToken)
+            
+            guard let authResponse = authResponse else { return }
+
+            // Save `auth` to keychain
+            KeychainHelper.standard.save(
+                authResponse.data,
+                service: "token",
+                account: APIProviderImpl.baseURL
+            )
+            UserDefaults.standard.set(Date(), forKey: "lastTokenAccessDate")
+            self?.router.showProfileScreen()
         }
     }
     

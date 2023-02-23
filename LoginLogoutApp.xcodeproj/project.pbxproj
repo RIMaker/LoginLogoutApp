@@ -24,6 +24,10 @@
 		7CB80F2E29A77ED000750B8D /* AuthResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB80F2D29A77ED000750B8D /* AuthResponseModel.swift */; };
 		7CB80F3029A77F3B00750B8D /* AuthRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB80F2F29A77F3B00750B8D /* AuthRequestModel.swift */; };
 		7CB80F3229A7A63300750B8D /* BadResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB80F3129A7A63300750B8D /* BadResponseModel.swift */; };
+		7CB80F3529A7B5F800750B8D /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB80F3429A7B5F800750B8D /* KeychainHelper.swift */; };
+		7CB80F3929A7BC0900750B8D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB80F3829A7BC0900750B8D /* ProfileViewController.swift */; };
+		7CB80F3B29A7BC4000750B8D /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB80F3A29A7BC4000750B8D /* ProfilePresenter.swift */; };
+		7CB80F3E29A7BDE400750B8D /* LLButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB80F3D29A7BDE400750B8D /* LLButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +50,10 @@
 		7CB80F2D29A77ED000750B8D /* AuthResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponseModel.swift; sourceTree = "<group>"; };
 		7CB80F2F29A77F3B00750B8D /* AuthRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequestModel.swift; sourceTree = "<group>"; };
 		7CB80F3129A7A63300750B8D /* BadResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadResponseModel.swift; sourceTree = "<group>"; };
+		7CB80F3429A7B5F800750B8D /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
+		7CB80F3829A7BC0900750B8D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		7CB80F3A29A7BC4000750B8D /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
+		7CB80F3D29A7BDE400750B8D /* LLButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,8 +109,10 @@
 				7C6837B829A6590B001C243C /* Assemblers */,
 				7C6837B129A65126001C243C /* Network */,
 				7C6837B429A6538B001C243C /* AuthService */,
+				7CB80F3329A7B5DE00750B8D /* KeychainHelper */,
 				7C6837B729A6539E001C243C /* Models */,
 				7C6837AC29A648D2001C243C /* Extensions */,
+				7CB80F3C29A7BDB400750B8D /* Core */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -172,6 +182,7 @@
 		7C6837A829A63A89001C243C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7CB80F3829A7BC0900750B8D /* ProfileViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -179,6 +190,7 @@
 		7C6837A929A63A8F001C243C /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				7CB80F3A29A7BC4000750B8D /* ProfilePresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -226,6 +238,22 @@
 				7C6837BB29A65933001C243C /* Router.swift */,
 			);
 			path = Assemblers;
+			sourceTree = "<group>";
+		};
+		7CB80F3329A7B5DE00750B8D /* KeychainHelper */ = {
+			isa = PBXGroup;
+			children = (
+				7CB80F3429A7B5F800750B8D /* KeychainHelper.swift */,
+			);
+			path = KeychainHelper;
+			sourceTree = "<group>";
+		};
+		7CB80F3C29A7BDB400750B8D /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				7CB80F3D29A7BDE400750B8D /* LLButton.swift */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -305,11 +333,15 @@
 				7C6837BC29A65933001C243C /* Router.swift in Sources */,
 				7C6837B329A65139001C243C /* APIProvider.swift in Sources */,
 				7C6837B029A64953001C243C /* AuthTextField.swift in Sources */,
+				7CB80F3929A7BC0900750B8D /* ProfileViewController.swift in Sources */,
 				7C6837BA29A65922001C243C /* ViewFactory.swift in Sources */,
 				7C68378C29A637F3001C243C /* AppDelegate.swift in Sources */,
 				7CB80F3229A7A63300750B8D /* BadResponseModel.swift in Sources */,
+				7CB80F3E29A7BDE400750B8D /* LLButton.swift in Sources */,
 				7CB80F3029A77F3B00750B8D /* AuthRequestModel.swift in Sources */,
+				7CB80F3529A7B5F800750B8D /* KeychainHelper.swift in Sources */,
 				7CB80F2E29A77ED000750B8D /* AuthResponseModel.swift in Sources */,
+				7CB80F3B29A7BC4000750B8D /* ProfilePresenter.swift in Sources */,
 				7C68378E29A637F3001C243C /* SceneDelegate.swift in Sources */,
 				7C6837AE29A648E6001C243C /* UIImageView + load.swift in Sources */,
 				7C6837B629A65398001C243C /* AuthServiceImpl.swift in Sources */,

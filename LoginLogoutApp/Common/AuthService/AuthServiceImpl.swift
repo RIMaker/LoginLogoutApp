@@ -25,7 +25,7 @@ class AuthServiceImpl: AuthService {
     
     var state: AuthState
     
-    var apiProvider: APIProvider
+    private var apiProvider: APIProvider
     
     private init() {
         state = .notAuthorized

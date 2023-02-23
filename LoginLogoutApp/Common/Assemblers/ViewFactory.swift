@@ -31,15 +31,23 @@ class ViewFactoryImpl: ViewFactory {
 extension ViewFactoryImpl {
     func makeAuthScreen() -> UIViewController {
         let authVC = AuthorizationViewControllerImpl()
+        let authRouter: RouterAuthorizationScreen = RouterImpl(viewFactory: self)
         let presenter = AuthorizationPresenterImpl(
             authService: AuthServiceImpl.shared,
-            view: authVC)
+            view: authVC,
+            router: authRouter)
         authVC.presenter = presenter
         return authVC
     }
     
     func makeProfileScreen() -> UIViewController? {
-       
-        return UIViewController()
+        let profileVC = ProfileViewControllerImpl()
+        let profileRouter: RouterProfileScreen = RouterImpl(viewFactory: self)
+        let presenter = ProfilePresenterImpl(
+            authService: AuthServiceImpl.shared,
+            view: profileVC,
+            router: profileRouter)
+        profileVC.presenter = presenter
+        return profileVC
     }
 }

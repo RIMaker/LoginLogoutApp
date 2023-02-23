@@ -37,7 +37,7 @@ class AuthTextField: UITextField {
     private func setup() {
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 20
-        layer.borderWidth = 2
+        layer.borderWidth = 1
         layer.borderColor = UIColor.gray.cgColor
         autocorrectionType = .no
         autocapitalizationType = .none

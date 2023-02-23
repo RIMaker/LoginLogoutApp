@@ -72,14 +72,9 @@ class AuthorizationViewControllerImpl: UIViewController, AuthorizationViewContro
         return textField
     }()
     
-    private lazy var signInButton: UIButton = {
-        let btn = UIButton()
-        btn.setTitleColor(.white, for: .normal)
+    private lazy var signInButton: LLButton = {
+        let btn = LLButton()
         btn.setTitle("Войти", for: .normal)
-        btn.backgroundColor = .orange
-        btn.layer.cornerRadius = 20
-        btn.clipsToBounds = true
-        btn.translatesAutoresizingMaskIntoConstraints = false
         btn.addTarget(self, action: #selector(tappedOnSignInButton), for: .touchUpInside)
         return btn
     }()
@@ -164,6 +159,8 @@ class AuthorizationViewControllerImpl: UIViewController, AuthorizationViewContro
 
 }
 
+
+// MARK: UITextFieldDelegate
 extension AuthorizationViewControllerImpl: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
