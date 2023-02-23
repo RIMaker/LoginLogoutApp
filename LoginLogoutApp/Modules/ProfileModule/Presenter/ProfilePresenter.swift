@@ -32,6 +32,7 @@ class ProfilePresenterImpl: ProfilePresenter {
     
     func signOut() {
         router.showAuthorizationScreen()
+        authService.signOut()
     }
     
     private func getUserInfo() {

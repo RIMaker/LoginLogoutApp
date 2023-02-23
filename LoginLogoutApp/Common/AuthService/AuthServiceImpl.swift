@@ -74,7 +74,10 @@ class AuthServiceImpl: AuthService {
     }
     
     func signOut() {
-        
+        KeychainHelper.standard.delete(
+            service: DefaultsKeys.tokenKey.rawValue,
+            account: APIProviderImpl.baseURL
+        )
     }
     
     func getUserInfo(completion: @escaping (UserInfoModel?)->()) {
