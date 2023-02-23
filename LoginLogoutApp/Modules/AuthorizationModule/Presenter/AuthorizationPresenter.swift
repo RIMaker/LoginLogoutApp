@@ -49,17 +49,10 @@ class AuthorizationPresenterImpl: AuthorizationPresenter {
             login: login,
             password: password,
             captcha: captchaRequestModel
-        ) { [weak self] authResponse in
+        ) { [weak self] isSuccessed in
             
-            guard let authResponse = authResponse else { return }
+            guard isSuccessed else { return }
 
-            // Save `auth` to keychain
-            KeychainHelper.standard.save(
-                authResponse.data,
-                service: DefaultsKeys.tokenKey.rawValue,
-                account: APIProviderImpl.baseURL
-            )
-            UserDefaults.standard.set(Date(), forKey: DefaultsKeys.lastTokenAccessDateKey.rawValue)
             self?.router.showProfileScreen()
         }
     }

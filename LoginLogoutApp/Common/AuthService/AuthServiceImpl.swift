@@ -13,9 +13,9 @@ enum AuthState {
 }
 
 protocol AuthService {
-    var state: AuthState { get set }
+    var state: AuthState { get }
     func getCaptcha(completion: @escaping (CaptchaResponseModel?)->())
-    func signIn(login: String, password: String, captcha: CaptchaRequestData, completion: @escaping (AuthResponseModel?)->())
+    func signIn(login: String, password: String, captcha: CaptchaRequestData, completion: @escaping (Bool)->())
     func signOut()
     func getUserInfo(completion: @escaping (UserInfoModel?)->())
 }
@@ -24,12 +24,13 @@ class AuthServiceImpl: AuthService {
     
     static let shared = AuthServiceImpl()
     
-    var state: AuthState
+    var state: AuthState {
+        getAuthState()
+    }
     
     private var apiProvider: APIProvider
     
     private init() {
-        state = .notAuthorized
         apiProvider = APIProviderImpl()
     }
     
@@ -51,7 +52,7 @@ class AuthServiceImpl: AuthService {
         }
     }
     
-    func signIn(login: String, password: String, captcha: CaptchaRequestData, completion: @escaping (AuthResponseModel?)->()) {
+    func signIn(login: String, password: String, captcha: CaptchaRequestData, completion: @escaping (Bool)->()) {
         let authRequestModel = AuthRequestModel(
             username: login,
             password: password,
@@ -62,13 +63,14 @@ class AuthServiceImpl: AuthService {
             requestType: .auth,
             httpHeaders: nil,
             httpBody: httpBody
-        ) { result in
+        ) { [weak self] result in
             switch result {
             case .success(let authResponseModel):
-                completion(authResponseModel)
+                self?.saveToken(authResponse: authResponseModel)
+                completion(true)
             case .failure(let error):
                 print(error)
-                completion(nil)
+                completion(false)
             }
         }
     }
@@ -106,6 +108,41 @@ class AuthServiceImpl: AuthService {
                 print(error)
                 completion(nil)
             }
+        }
+    }
+    
+    private func saveToken(authResponse: AuthResponseModel?) {
+        guard let authResponse = authResponse else { return }
+        // Save `auth` to keychain
+        KeychainHelper.standard.save(
+            authResponse.data,
+            service: DefaultsKeys.tokenKey.rawValue,
+            account: APIProviderImpl.baseURL
+        )
+        UserDefaults.standard.set(Date(), forKey: DefaultsKeys.lastTokenAccessDateKey.rawValue)
+    }
+    
+    private func getAuthState() -> AuthState {
+        let result = KeychainHelper.standard.read(
+            service: DefaultsKeys.tokenKey.rawValue,
+            account: APIProviderImpl.baseURL,
+            type: AuthTokens.self
+        )
+        
+        let lastTokenUpdatingDate = UserDefaults.standard.object(
+            forKey: DefaultsKeys.lastTokenAccessDateKey.rawValue
+        ) as? Date
+        
+        let nowDate = Date()
+        
+        if
+            let lastTokenUpdatingDate = lastTokenUpdatingDate,
+            let result = result,
+            nowDate.timeIntervalSince(lastTokenUpdatingDate) < Double(result.expiresIn)
+        {
+            return .authorized
+        } else {
+            return .notAuthorized
         }
     }
     

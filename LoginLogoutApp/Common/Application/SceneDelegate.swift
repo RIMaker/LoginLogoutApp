@@ -22,30 +22,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.overrideUserInterfaceStyle = .light
         window?.windowScene = windowScene
         
-        let result = KeychainHelper.standard.read(
-            service: DefaultsKeys.tokenKey.rawValue,
-            account: APIProviderImpl.baseURL,
-            type: AuthTokens.self
-        )
-        
-        let lastTokenUpdatingDate = UserDefaults.standard.object(
-            forKey: DefaultsKeys.lastTokenAccessDateKey.rawValue
-        ) as? Date
-        
-        let nowDate = Date()
-        
-        if
-            let lastTokenUpdatingDate = lastTokenUpdatingDate,
-            let result = result,
-            nowDate.timeIntervalSince(lastTokenUpdatingDate) < Double(result.expiresIn)
-        {
-            
-            window?.rootViewController = viewFactory.makeView(for: .profileScreen)
-            
-        } else {
-            
+        switch AuthServiceImpl.shared.state {
+        case .notAuthorized:
             window?.rootViewController = viewFactory.makeView(for: .authScreen)
-            
+        case .authorized:
+            window?.rootViewController = viewFactory.makeView(for: .profileScreen)
         }
         
         window?.makeKeyAndVisible()
